@@ -1,17 +1,32 @@
 <template>
   <div class="home">
-    <Header />
+    <h1>Popular Planets</h1>
+    <p center class="heading-underline"></p>
+    <Planets />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
+import Planets from "@/components/Planets.vue";
 
 export default {
   name: "home",
   components: {
-    Header
+    Planets
   }
 };
 </script>
+
+<style scoped>
+.home {
+  margin-top: 5em;
+}
+.heading-underline {
+  width: 200px;
+  border-bottom: 8px solid black;
+  padding: 0px 4px 9px;
+  display: inline-block;
+  /* margin-bottom: 2em; */
+}
+</style>
