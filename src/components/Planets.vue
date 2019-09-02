@@ -7,7 +7,7 @@
       <PlanetCard />
       <PlanetCard />
       <PlanetCard />
-      <div class="more-characters">
+      <div class="more-planets">
         <button>View More</button>
       </div>
     </b-row>
@@ -24,17 +24,23 @@ export default {
 
 <style>
 .planets {
-  /* padding: 5em 10em; */
   width: 70%;
   margin-bottom: 4em;
 }
-.more-characters {
+.more-planets {
+  margin-top: 8em;
   margin: auto;
   text-align: center;
+  width: 50%;
 }
-.more-characters button{
+.more-planets button{
   border: 3px solid black;
-  padding: 5px 190px;
+  width: 100%;
+  max-width: 400px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   outline: none;
+  border-radius: 5px;
+
 }
 </style>

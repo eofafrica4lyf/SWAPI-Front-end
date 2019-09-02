@@ -34,7 +34,7 @@ export default {
 
 <style scoped>
 .planet-card {
-  position: relative;
+  /* position: relative; */
   padding: 0px;
   margin-bottom: 3em;
   margin-top: 3em;
@@ -58,6 +58,11 @@ export default {
   margin-left: auto;
   border-radius: 0px;
   padding: 7px 26px;
+  background-color: #c5c5c5;
+  border: none;
+}
+.planet-card .btn:hover {
+  background-color: #000000;
 }
 .planet-card-image {
   height: 250px;

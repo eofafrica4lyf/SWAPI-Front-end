@@ -31,7 +31,7 @@
                     <b-dropdown-item>Spaceship</b-dropdown-item>
                   </b-dropdown>
 
-                  <b-form-input id="header-search-text-input"></b-form-input>
+                  <b-form-input id="header-search-text-input" placeholder="Enter a search term..."></b-form-input>
 
                   <b-input-group-append>
                     <b-button
@@ -83,9 +83,6 @@ export default {
   margin-top: 1em;
   margin-bottom: 2em;
 }
-/* .header-search-row .row * {
-  margin-bottom: 1em;
-} */
 .header-search-row .input-group {
   width: 70%;
   margin: auto;

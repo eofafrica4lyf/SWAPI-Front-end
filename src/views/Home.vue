@@ -3,17 +3,22 @@
     <h1>Popular Planets</h1>
     <p center class="heading-underline"></p>
     <Planets />
+    <h1>Popular Characters</h1>
+    <p center class="heading-underline"></p>
+    <Characters />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Planets from "@/components/Planets.vue";
+import Characters from "@/components/Characters.vue";
 
 export default {
   name: "home",
   components: {
-    Planets
+    Planets,
+    Characters
   }
 };
 </script>
@@ -27,6 +32,5 @@ export default {
   border-bottom: 8px solid black;
   padding: 0px 4px 9px;
   display: inline-block;
-  /* margin-bottom: 2em; */
 }
 </style>
