@@ -10,6 +10,18 @@
       <div class="more-planets">
         <button>View More</button>
       </div>
+
+      <b-container>
+        <b-row>
+          <div class="overflow-auto">
+            <b-pagination-nav
+              :link-gen="linkGen"
+              :page-gen="pageGen"
+              :number-of-pages="links.length"
+            ></b-pagination-nav>
+          </div>
+        </b-row>
+      </b-container>
     </b-row>
   </b-container>
 </template>
@@ -18,7 +30,20 @@
 import PlanetCard from "../components/PlanetCard";
 export default {
   name: "Planets",
-  components: { PlanetCard }
+  components: { PlanetCard },
+  data() {
+    return {
+      links: ["#foo", "#bar", "#baz", "#faz"]
+    };
+  },
+  methods: {
+    linkGen(pageNum) {
+      return this.links[pageNum - 1];
+    },
+    pageGen(pageNum) {
+      return this.links[pageNum - 1].slice(1);
+    }
+  }
 };
 </script>
 
@@ -33,7 +58,7 @@ export default {
   text-align: center;
   width: 50%;
 }
-.more-planets button{
+.more-planets button {
   border: 3px solid black;
   width: 100%;
   max-width: 400px;
@@ -41,6 +66,5 @@ export default {
   padding-bottom: 8px;
   outline: none;
   border-radius: 5px;
-
 }
 </style>

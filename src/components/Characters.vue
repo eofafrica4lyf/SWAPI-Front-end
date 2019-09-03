@@ -1,25 +1,54 @@
 <template>
   <b-container fluid class="characters">
-    <b-row>
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
-      <CharacterCard />
-      <div class="more-characters">
-        <button>View More</button>
-      </div>
+    <b-row >
+      <CharacterCard v-bind:key="character.name" v-for="character in characters" :character="character"/>
     </b-row>
+    <div class="more-characters">
+      <button>View More</button>
+    </div>
   </b-container>
 </template>
 
 <script>
 import CharacterCard from "@/components/CharacterCard";
+import axios from "axios";
 export default {
   name: "Characters",
   components: {
     CharacterCard
+  },
+  data() {
+    return {
+      characters: []
+    };
+  },
+  // data() {
+  //   return {
+  //     slide: 0,
+  //     sliding: null
+  //   };
+  // },
+  methods: {
+    // onSlideStart(slide) {
+    //   this.sliding = true;
+    // },
+    // onSlideEnd(slide) {
+    //   this.sliding = false;
+    // }
+  },
+  created() {
+    axios
+      .get("/api/people")
+      .then(res => {
+        this.characters = res.data.results;
+        // eslint-disable-next-line
+        console.log(this.characters);
+        return this.characters;
+      })
+      .catch(err =>
+        // eslint-disable-next-line
+        console.log(err.message)
+      );
   }
 };
 </script>
@@ -44,8 +73,8 @@ export default {
   outline: none;
   border-radius: 5px;
 }
-/* .planet .card-title {
+.planet .card-title {
   position: relative;
   bottom: -260px;
-} */
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <b-col sm="12" md="12" lg="6" class="character-card">
+  <b-col sm="12" md="12" lg="6" class="character-card" v-bind:character="character" >
     <div class="inner-card">
       <div class="character-image">
         <b-img
@@ -11,8 +11,8 @@
       </div>
       <div class="character-info">
         <!-- <div class="inner"> -->
-          <h4><b>Darth Vader</b></h4>
-          <h6><em>Anakin Skywalker</em></h6>
+          <h4><b>{{character.name}}</b></h4>
+          <h6><em>{{character.gender.toUpperCase()}}</em></h6>
           <p>Some quick example text to build on the card title and make up the bulk of the card's content...<span class="read-more"><b>Read More</b></span></p>
         </div>
       <!-- </div> -->
@@ -22,7 +22,8 @@
 
 <script>
 export default {
-  name: "CharacterCard"
+  name: "CharacterCard",
+  props: ["character"]
 };
 </script>
 
