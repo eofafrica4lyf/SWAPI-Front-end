@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <!-- <Header /> -->
     <router-view />
   </div>
 </template>
@@ -13,25 +13,29 @@ Vue.use(BootstrapVue);
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import Header from "./components/Header"
+import Header from "./components/Header";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header
-  }};
+    // Header
+  }
+};
 </script>
 
 <style>
+/* body {
+  margin-top: -80px;
+} */
 @font-face {
-  font-family: 'StarJedi';
+  font-family: "StarJedi";
   src: url("/assets/fonts/Starjedi.ttf") format("truetype");
 }
 h1 {
   font-size: 2.5em;
 }
-.starjedi{
-  font-family: "StarJedi"
+.starjedi {
+  font-family: "StarJedi";
 }
 p {
   font-size: 1.3em;
@@ -43,11 +47,13 @@ p {
   text-align: center;
   color: #2c3e50;
 }
-#app{
+#app {
   margin-bottom: 4em;
 }
 * {
   outline: none;
 }
-
+.after-header{
+  margin-top: 2em;
+}
 </style>

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Characters from './views/Characters.vue'
+import Characters from './views/Characters.vue';
+import CharacterDetail from './views/CharacterDetail.vue';
 
 Vue.use(Router)
 
@@ -14,9 +15,13 @@ export default new Router({
       component: Home
     },
     {
-      path: '/characters',
+      path: '/people',
       name: 'characters',
       component: Characters
+    },
+    {
+      path: '/people/:id',
+      component: CharacterDetail
     },
     {
       path: '/about',

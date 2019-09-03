@@ -10,24 +10,12 @@
       <div class="more-planets">
         <button>View More</button>
       </div>
-
-      <b-container>
-        <b-row>
-          <div class="overflow-auto">
-            <b-pagination-nav
-              :link-gen="linkGen"
-              :page-gen="pageGen"
-              :number-of-pages="links.length"
-            ></b-pagination-nav>
-          </div>
-        </b-row>
-      </b-container>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import PlanetCard from "../components/PlanetCard";
+import PlanetCard from "../Planets/PlanetCard";
 export default {
   name: "Planets",
   components: { PlanetCard },

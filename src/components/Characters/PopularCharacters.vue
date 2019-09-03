@@ -22,10 +22,9 @@
 </template>
 
 <script>
-import CharacterCard from "@/components/CharacterCard";
+import CharacterCard from "@/components/Characters/CharacterCard";
 import { Fragment } from "vue-fragment";
-// import axios from "axios";
-import DataService from "../services/DataServices";
+import DataService from "../../services/DataServices";
 export default {
   name: "PopularCharacters",
   components: {

@@ -2,6 +2,16 @@
   <fragment>
     <b-container fluid class="characters" v-if="characters">
       <b-row>
+        <b-col sm="12" md="12" lg="12" class="character-card">
+          <div class="filter-character">
+            <b-form-select v-model="selected_filter" v-on:change="getFilteredData" class="mb-3">
+              <option :value="null">Please select an option</option>
+              <option value="Luke">Male</option>
+              <option value="Anakin">Female</option>
+              <option value="Leia">Robot</option>
+            </b-form-select>
+          </div>
+        </b-col>
         <CharacterCard
           v-bind:key="character.name"
           v-for="character in results"
@@ -21,10 +31,9 @@
 </template>
 
 <script>
-import CharacterCard from "@/components/CharacterCard";
+import CharacterCard from "../Characters/CharacterCard";
 import { Fragment } from "vue-fragment";
-// import axios from "axios";
-import DataService from "../services/DataServices";
+import DataService from "../../services/DataServices";
 export default {
   name: "Characters",
   components: {
@@ -37,10 +46,20 @@ export default {
       results: [],
       loading: false,
       currentPage: 1,
-      totalCount: 0
+      totalCount: 0,
+      selected_filter: "null"
     };
   },
   methods: {
+    async getFilteredData() {
+      let url = "/api/people?search=" + this.selected_filter;
+      // let url = "/api/people";
+      let data = await DataService.getPosts(url);
+      console.log("data", data);
+      this.characters = data;
+      this.results = data.results;
+      return;
+    },
     async getNextPage() {
       if (this.currentPage === Math.ceil(this.totalCount / 10)) {
         return;
@@ -48,12 +67,13 @@ export default {
       this.loading = true;
       let url = this.characters.next.split("https://swapi.co")[1];
       let data = await DataService.getPosts(url);
-      let urlArray = url.split("");
+      // let urlArray = url.split("");
       this.characters = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
       this.loading = false;
+      return;
     },
     async getPreviousPage() {
       if (this.currentPage === 1) {
@@ -61,21 +81,43 @@ export default {
       }
       this.loading = true;
       let url = this.characters.previous.split("https://swapi.co")[1];
+      console.log("url", url);
+
       let data = await DataService.getPosts(url);
       this.characters = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
       this.loading = false;
+      return;
     }
   },
   async created() {
-    let url = "/api/people";
-    let data = await DataService.getPosts(url);
-    this.characters = data;
-    this.results = data.results;
-    this.currentPage = 1;
-    this.totalCount = data.count;
+    let url;
+    console.log(this.$route.query, Object.keys(this.$route.query).length);
+
+    if (Object.keys(this.$route.query).length !== 0) {
+      // eslint-disable-next-line
+      console.log(this.$route.query, Object.keys(this.$route.query));
+      url = "/api/people?search=" + this.$route.query.query;
+    } else {
+      url = "/api/people";
+    }
+    try {
+      let data = await DataService.getPosts(url);
+      this.characters = data;
+      this.results = data.results;
+      this.currentPage = 1;
+      this.totalCount = data.count;
+      // this.$route.query = {};
+      return;
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+      this.$router.push({
+        path: "/people"
+      });
+    }
   }
 };
 </script>
@@ -124,5 +166,16 @@ export default {
 }
 .paginate #next {
   border-radius: 0px 5px 5px 0px;
+}
+.filter-character {
+  display: block;
+  border-radius: 5px;
+  width: 250px;
+}
+.filter-character select {
+  border: 2px solid black;
+}
+#character-filter-dropdown {
+  width: 50%;
 }
 </style>

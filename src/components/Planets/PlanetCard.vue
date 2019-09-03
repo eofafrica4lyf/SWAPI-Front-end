@@ -3,7 +3,7 @@
     <div class="inner-card">
       <div class="planet-card-image">
         <b-img
-          :src="`/assets/images/starship-1.jpg`"
+          :src="`/assets/images/starship-${Math.ceil(Math.random() * 6)}.jpg`"
           left
           alt="Star Wars Logo"
           class="planet--image"
@@ -67,6 +67,9 @@ export default {
 .planet-card-image {
   height: 250px;
   width: 350px;
+  /* height: 350px;
+    width: 350px; */
+    object-fit: cover;
 }
 .planet--image {
   height: 100%;
