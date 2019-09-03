@@ -6,8 +6,9 @@
           <b-img left :src="require('../assets/images/logo.png')" alt="Star Wars Logo" id="logo"></b-img>
         </a>
 
-        <!-- <router-link to="/">Home</router-link>|
-        <router-link to="/about">About</router-link>-->
+        <router-link to="/">Home</router-link>|
+        <router-link to="/characters">Characters</router-link>|
+        <router-link to="/about">About</router-link>
 
         <b-container class="header-search-row">
           <b-row>
