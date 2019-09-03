@@ -5,20 +5,20 @@
     <Planets />
     <h1>Popular Characters</h1>
     <p center class="heading-underline"></p>
-    <Characters />
+    <PopularCharacters />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Planets from "@/components/Planets.vue";
-import Characters from "@/components/Characters.vue";
+import PopularCharacters from "@/components/PopularCharacters.vue";
 
 export default {
   name: "home",
   components: {
     Planets,
-    Characters
+    PopularCharacters
   }
 };
 </script>

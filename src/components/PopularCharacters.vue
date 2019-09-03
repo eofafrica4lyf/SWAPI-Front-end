@@ -8,15 +8,16 @@
           :character="character"
         />
       </b-row>
+      <div class="text-center" v-if="loading">
+        <b-spinner label="Spinning"></b-spinner>
+      </div>
+      <div class="more-characters" v-else v-on:click="getMore">
+        <button>View More</button>
+      </div>
     </b-container>
     <div class="text-center spinner" v-else>
       <b-spinner label="Spinning"></b-spinner>
     </div>
-    <b-button-group size="lg" class="mx-1 paginate">
-      <p>{{((this.currentPage - 1) * 10) + 1}}-{{((this.currentPage - 1) * 10) + results.length}} of {{this.totalCount}}&nbsp;</p>
-      <b-button id="previous" v-on:click="getPreviousPage"><</b-button>
-      <b-button id="next" v-on:click="getNextPage">></b-button>
-    </b-button-group>
   </fragment>
 </template>
 
@@ -26,7 +27,7 @@ import { Fragment } from "vue-fragment";
 // import axios from "axios";
 import DataService from "../services/DataServices";
 export default {
-  name: "Characters",
+  name: "PopularCharacters",
   components: {
     CharacterCard,
     Fragment
@@ -35,47 +36,29 @@ export default {
     return {
       characters: "",
       results: [],
-      loading: false,
-      currentPage: 1,
-      totalCount: 0
+      loading: false
     };
   },
   methods: {
-    async getNextPage() {
-      if (this.currentPage === Math.ceil(this.totalCount / 10)) {
-        return;
-      }
+    async getMore() {
       this.loading = true;
       let url = this.characters.next.split("https://swapi.co")[1];
+
       let data = await DataService.getPosts(url);
-      let urlArray = url.split("");
+      // eslint-disable-next-line
+      console.log(url, data);
       this.characters = data;
-      this.results = data.results;
-      this.currentPage = Number(url[url.length - 1]);
-      this.totalCount = data.count;
-      this.loading = false;
-    },
-    async getPreviousPage() {
-      if (this.currentPage === 1) {
-        return;
-      }
-      this.loading = true;
-      let url = this.characters.previous.split("https://swapi.co")[1];
-      let data = await DataService.getPosts(url);
-      this.characters = data;
-      this.results = data.results;
-      this.currentPage = Number(url[url.length - 1]);
-      this.totalCount = data.count;
+      this.results = [...this.results, ...data.results];
       this.loading = false;
     }
   },
   async created() {
     let url = "/api/people";
     let data = await DataService.getPosts(url);
+    // eslint-disable-next-line
+    console.log(url, data);
     this.characters = data;
     this.results = data.results;
-    this.currentPage = 1;
-    this.totalCount = data.count;
   }
 };
 </script>
@@ -106,23 +89,5 @@ export default {
 }
 .spinner .spinner-border {
   margin: 10em;
-}
-.paginate p {
-  line-height: 29px;
-  margin-top: 0.6em;
-  margin-bottom: 0.5em;
-}
-.paginate button {
-  color: black;
-  background-color: white;
-  border-width: 2px;
-  font-weight: 900;
-  font-size: 1em;
-}
-.paginate #previous {
-  border-radius: 5px 0px 0px 5px;
-}
-.paginate #next {
-  border-radius: 0px 5px 5px 0px;
 }
 </style>
