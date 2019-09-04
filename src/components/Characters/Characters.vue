@@ -53,11 +53,10 @@ export default {
   methods: {
     async getFilteredData() {
       let url = "/api/people?search=" + this.selected_filter;
-      // let url = "/api/people";
       let data = await DataService.getPosts(url);
-      console.log("data", data);
       this.characters = data;
       this.results = data.results;
+      this.totalCount = data.count;
       return;
     },
     async getNextPage() {
@@ -81,7 +80,6 @@ export default {
       }
       this.loading = true;
       let url = this.characters.previous.split("https://swapi.co")[1];
-      console.log("url", url);
 
       let data = await DataService.getPosts(url);
       this.characters = data;
@@ -94,11 +92,8 @@ export default {
   },
   async created() {
     let url;
-    console.log(this.$route.query, Object.keys(this.$route.query).length);
 
     if (Object.keys(this.$route.query).length !== 0) {
-      // eslint-disable-next-line
-      console.log(this.$route.query, Object.keys(this.$route.query));
       url = "/api/people?search=" + this.$route.query.query;
     } else {
       url = "/api/people";

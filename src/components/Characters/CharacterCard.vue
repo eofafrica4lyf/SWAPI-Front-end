@@ -15,6 +15,9 @@
           <b>{{character.name}}</b>
         </h4>
         <h6>
+          <em>Birth Date: {{character.birth_year.toUpperCase()}}</em>
+        </h6>
+        <h6>
           <em>{{character.gender.toUpperCase()}}</em>
         </h6>
         <p>

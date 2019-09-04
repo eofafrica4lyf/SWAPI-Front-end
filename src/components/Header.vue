@@ -71,7 +71,6 @@ export default {
         return;
       }
       // eslint-disable-next-line
-      console.log({ query: this.search_input, category: this.category });
       let path = `/${this.category}`
       this.$router.push({
         path,
