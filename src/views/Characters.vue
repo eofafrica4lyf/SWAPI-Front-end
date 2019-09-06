@@ -1,36 +1,31 @@
 <template>
   <div class="main">
-    <div class="home">
+    <div class="characters">
       <Header />
-      <h1 class="after-header">Popular Planets</h1>
+      <h1 class="after-header">Characters</h1>
       <p center class="heading-underline"></p>
-      <Planets />
-      <h1 id="after-header">Popular Characters</h1>
-      <p center class="heading-underline"></p>
-      <PopularCharacters />
+      <Characters />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Planets from "@/components/Planets/Planets.vue";
-import PopularCharacters from "@/components/Characters/PopularCharacters.vue";
+import Characters from "@/components/Characters/Characters.vue";
 import Header from "../components/Header";
 export default {
   name: "home",
   components: {
     Header,
-    Planets,
-    PopularCharacters
+    Characters
   }
 };
 </script>
 
 <style scoped>
-/* .home {
+.home {
   margin-top: 5em;
-} */
+}
 .heading-underline {
   width: 200px;
   border-bottom: 8px solid black;
