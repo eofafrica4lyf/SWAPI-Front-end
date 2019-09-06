@@ -5,10 +5,11 @@
         <a href="/">
           <b-img left :src="require('../assets/images/logo.png')" alt="Star Wars Logo" id="logo"></b-img>
         </a>
-
-        <router-link to="/">Home</router-link>|
-        <router-link to="/people">Characters</router-link>|
-        <router-link to="/about">About</router-link>
+        <div right class="menu-items">
+          <router-link :active="isActive" to="/">Home</router-link> |
+          <router-link :active="isActive" to="/people">Characters</router-link> |
+          <router-link :active="isActive" to="/about">About</router-link>
+        </div>
 
         <b-container class="header-search-row">
           <b-row>
@@ -67,11 +68,11 @@ export default {
   methods: {
     submitSearch(e) {
       e.preventDefault();
-      if(this.category == "null"){
+      if (this.category == "null") {
         return;
       }
       // eslint-disable-next-line
-      let path = `/${this.category}`
+      let path = `/${this.category}`;
       this.$router.push({
         path,
         query: { query: this.search_input }
@@ -132,5 +133,20 @@ export default {
   display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
+}
+.menu-items {
+  float: right;
+  padding-right: 4em;
+  position: relative;
+  top: 50px;
+  font-size: 1.5em;
+  color: white;
+}
+.menu-items a {
+  text-decoration: none;
+  color: white;
+}
+.isActive{
+  border: 1px solid white;
 }
 </style>
