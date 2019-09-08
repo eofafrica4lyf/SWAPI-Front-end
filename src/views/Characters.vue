@@ -2,8 +2,7 @@
   <div class="main">
     <div class="characters">
       <Header />
-      <h1 class="after-header">Characters</h1>
-      <p center class="heading-underline"></p>
+      
       <Characters />
     </div>
   </div>

@@ -8,9 +8,9 @@ class DataService {
 		return new Promise(async (resolve, reject) => {
 			try {
         url = "https://swapi.co"+ url;
-        console.log(url);
+        // console.log(url);
         const res = await axios.get(url);
-        console.log(res,url);
+        // console.log(res,url);
 				const data = res.data;
 				resolve(data);
 			} catch (err) {
