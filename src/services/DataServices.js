@@ -7,7 +7,10 @@ class DataService {
 	static getPosts(url) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.get(url);
+        url = "https://swapi.co"+ url;
+        console.log(url);
+        const res = await axios.get(url);
+        console.log(res,url);
 				const data = res.data;
 				resolve(data);
 			} catch (err) {
