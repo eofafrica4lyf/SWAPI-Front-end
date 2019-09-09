@@ -137,6 +137,7 @@ export default {
     }
     try {
       let data = await DataService.getPosts(url);
+      console.log(data);
       this.characters = data;
       this.results = data.results;
       this.currentPage = 1;
@@ -217,7 +218,7 @@ export default {
   padding: 0px 4px 9px;
   display: inline-block;
 }
-#errorPage{
+#errorPage {
   color: red;
 }
 </style>

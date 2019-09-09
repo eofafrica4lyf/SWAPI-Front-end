@@ -6,8 +6,8 @@
           <b-img left :src="require('../assets/images/logo.png')" alt="Star Wars Logo" id="logo"></b-img>
         </a>
         <div right class="menu-items">
-          <router-link :active="isActive" to="/">Home</router-link> |
-          <router-link :active="isActive" to="/people">Characters</router-link> |
+          <router-link :active="isActive" to="/">Home</router-link>|
+          <router-link :active="isActive" to="/people">Characters</router-link>|
           <router-link :active="isActive" to="/about">About</router-link>
         </div>
 
@@ -146,7 +146,7 @@ export default {
   text-decoration: none;
   color: white;
 }
-.isActive{
+.isActive {
   border: 1px solid white;
 }
 </style>
