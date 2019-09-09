@@ -43,8 +43,8 @@
         </b-row>
       </b-container>
       <b-button-group size="lg" class="mx-1 paginate">
-        <b-button id="previous" v-on:click="getPreviousPage"><</b-button>
-        <b-button id="next" v-on:click="getNextPage">></b-button>
+        <b-button id="previous" v-on:click="getPreviousPage">&lsaquo;</b-button>
+        <b-button id="next" v-on:click="getNextPage">&rsaquo;</b-button>
       </b-button-group>
     </fragment>
     <div class="text-center detail spinner" v-else>
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import { Fragment } from "vue-fragment";
+// import { Fragment } from "vue-fragment";
 import DataService from "../services/DataServices";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 export default {
   name: "Character",
   data() {
@@ -80,7 +80,7 @@ export default {
         let data = await DataService.getPosts(url);
         this.state = data;
         this.loading = false;
-        this.currentPage = this.currentPage - 1;
+        this.currentPage = Number(this.currentPage) - 1;
         this.loading = false;
         return;
       } catch (error) {
@@ -94,12 +94,12 @@ export default {
         return;
       }
       this.loading = true;
-      let url = `/api/people/${Number(this.currentPage) - 1}`;
+      let url = `/api/people/${Number(this.currentPage) + 1}`;
       try {
         let data = await DataService.getPosts(url);
         this.state = data;
         this.loading = false;
-        this.currentPage = this.currentPage - 1;
+        this.currentPage = Number(this.currentPage) + 1;
         this.loading = false;
         return;
       } catch (error) {
@@ -110,17 +110,14 @@ export default {
   },
   async created() {
     let url = "/api/people/" + this.$route.params.id;
-    console.log(url);
 
     this.currentPage = this.$route.params.id;
     this.nextPage = Number(this.$route.params.id) + 1;
     this.previousPage = Number(this.$route.params.id) - 1;
-    console.log(this.previousPage, this.currentPage, this.nextPage);
 
-    console.log(this.state, this.loading);
     try {
       let data = await DataService.getPosts(url);
-      console.log(data);
+
       this.state = data;
       this.loading = false;
       return;
