@@ -1,5 +1,5 @@
 <template>
-  <b-col sm="12" md="12" lg="4" class="planet-card">
+  <b-col sm="12" md="12" lg="4" class="planet-card" v-bind:starship="starship">
     <div class="inner-card">
       <div class="planet-card-image">
         <b-img
@@ -11,8 +11,17 @@
       </div>
       <div class="planet--card-body">
         <div class="inner">
-          <p></p>
-          <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p>
+            <b>{{starship.name}}</b>, 
+            <em><small><abbr>{{starship.model}}</abbr></small> </em>
+          </p>
+          <p>
+           
+          </p>
+          <p><b>Capacity: </b>
+            <abbr><abbr>{{starship.cargo_capacity}}</abbr></abbr>
+          </p>
+
           <b-button
             right
             size="md"
@@ -29,7 +38,8 @@
 <script>
 // import Image from "@/assets/images/logo.png";
 export default {
-  name: "PlanetCard"
+  name: "StarshipCard",
+  props: ["starship"]
 };
 </script>
 
@@ -70,7 +80,7 @@ export default {
   width: 350px;
   /* height: 350px;
     width: 350px; */
-    object-fit: cover;
+  object-fit: cover;
 }
 .planet--image {
   height: 100%;
@@ -91,5 +101,6 @@ export default {
   margin-left: 0.7em;
   padding: 2em;
   width: 350px;
+  height: 190px;
 }
 </style>

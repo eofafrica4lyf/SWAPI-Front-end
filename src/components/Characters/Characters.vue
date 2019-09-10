@@ -15,8 +15,8 @@
           </div>
         </b-col>
         <CharacterCard
-          v-bind:key="character.name"
           v-for="character in results"
+          v-bind:key="character.name"
           :character="character"
         />
       </b-row>
