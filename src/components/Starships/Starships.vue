@@ -52,6 +52,53 @@ export default {
       pagination_control: true
     };
   },
+  methods:{
+    async getNextPage() {
+      if (this.currentPage === Math.ceil(this.totalCount / 10)) {
+        document.querySelector("#errorPage").style.display = "block";
+        document.querySelector("#errorPage").textContent =
+          "You cannot navigate to the next page";
+        setTimeout(() => {
+          document.querySelector("#errorPage").style.display = "none";
+        }, 3000);
+        return;
+      }
+      this.loading = true;
+      let url = this.starships.next.split("https://swapi.co")[1];
+      console.log(url);
+
+      let data = await DataService.getPosts(url);
+      // let urlArray = url.split("");
+      this.starships = data;
+      this.results = data.results;
+      this.currentPage = Number(url[url.length - 1]);
+      this.totalCount = data.count;
+      console.log(this.results);
+      this.loading = false;
+      return;
+    },
+    async getPreviousPage() {
+      if (this.currentPage === 1) {
+        document.querySelector("#errorPage").style.display = "block";
+        document.querySelector("#errorPage").textContent =
+          "You cannot navigate to the previous page";
+        setTimeout(() => {
+          document.querySelector("#errorPage").style.display = "none";
+        }, 3000);
+        return;
+      }
+      this.loading = true;
+      let url = this.starships.previous.split("https://swapi.co")[1];
+
+      let data = await DataService.getPosts(url);
+      this.starships = data;
+      this.results = data.results;
+      this.currentPage = Number(url[url.length - 1]);
+      this.totalCount = data.count;
+      this.loading = false;
+      return;
+    }
+  },
   async created() {
     let url;
 

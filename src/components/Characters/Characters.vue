@@ -85,7 +85,7 @@ export default {
       if (this.currentPage === Math.ceil(this.totalCount / 10)) {
         document.querySelector("#errorPage").style.display = "block";
         document.querySelector("#errorPage").textContent =
-          "You cannot navigate to the previous page";
+          "You cannot navigate to the next page";
         setTimeout(() => {
           document.querySelector("#errorPage").style.display = "none";
         }, 3000);
@@ -109,7 +109,7 @@ export default {
       if (this.currentPage === 1) {
         document.querySelector("#errorPage").style.display = "block";
         document.querySelector("#errorPage").textContent =
-          "You cannot navigate to the next page";
+          "You cannot navigate to the previous page";
         setTimeout(() => {
           document.querySelector("#errorPage").style.display = "none";
         }, 3000);
