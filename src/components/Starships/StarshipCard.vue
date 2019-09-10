@@ -12,23 +12,27 @@
       <div class="planet--card-body">
         <div class="inner">
           <p>
-            <b>{{starship.name}}</b>, 
-            <em><small><abbr>{{starship.model}}</abbr></small> </em>
+            <b>{{starship.name}}</b>,
           </p>
+          <p class="s-model">
+            <em>
+              <small>
+                <abbr>{{starship.model}}</abbr>
+              </small>
+            </em>
+          </p>
+          <p></p>
           <p>
-           
-          </p>
-          <p><b>Capacity: </b>
-            <abbr><abbr>{{starship.cargo_capacity}}</abbr></abbr>
+            <b>Capacity: </b>
+            <abbr>
+              <abbr>{{starship.cargo_capacity}}</abbr>
+            </abbr>
           </p>
 
-          <b-button
-            right
-            size="md"
-            text="Button"
-            variant="dark"
-            id="header-search-submit-button"
-          >Read More</b-button>
+          <b-button right size="md" text="Button" variant="dark" id="header-search-submit-button">
+            Read More
+            <font-awesome-icon id="right-arrow" icon="arrow-right" />
+          </b-button>
         </div>
       </div>
     </div>
@@ -37,6 +41,7 @@
 
 <script>
 // import Image from "@/assets/images/logo.png";
+
 export default {
   name: "StarshipCard",
   props: ["starship"]
@@ -102,5 +107,11 @@ export default {
   padding: 2em;
   width: 350px;
   height: 190px;
+}
+svg#right-arrow {
+  font-size: 0.7em;
+}
+p.s-model {
+    margin-top: -20px;
 }
 </style>

@@ -8,7 +8,7 @@
         <div right class="menu-items">
           <router-link to="/">Home</router-link> 
           <router-link to="/people">Characters</router-link> 
-          <router-link to="/about">About</router-link>
+          <router-link to="/starships">Starships</router-link>
         </div>
 
         <b-container class="header-search-row">

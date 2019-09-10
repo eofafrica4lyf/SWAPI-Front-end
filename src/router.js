@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Characters from './views/Characters.vue';
 import CharacterDetail from './views/CharacterDetail.vue';
+import Starships from './views/Starships.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
     {
       path: '/people/:id',
       component: CharacterDetail
+    },
+    {
+      path: '/starships',
+      name: 'starships',
+      component: Starships
     },
     {
       path: '/about',

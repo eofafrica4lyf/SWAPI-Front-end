@@ -6,7 +6,7 @@
     <div class="text-center spinner2" v-if="loading">
       <b-spinner label="Spinning"></b-spinner>
     </div>
-    <div class="more-starships" v-on:click="getMore">
+    <div class="more-starships" v-on:click="getMore" v-else>
       <button>View More</button>
     </div>
   </b-container>
