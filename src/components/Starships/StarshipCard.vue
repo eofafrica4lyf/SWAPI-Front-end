@@ -28,11 +28,12 @@
               <abbr>{{starship.cargo_capacity}}</abbr>
             </abbr>
           </p>
-
-          <b-button right size="md" text="Button" variant="dark" id="header-search-submit-button">
-            Read More
-            <font-awesome-icon id="right-arrow" icon="arrow-right" />
-          </b-button>
+          <router-link class="read-more" v-bind:to="starship.url.split('https://swapi.co/api')[1]">
+            <b-button right size="md" text="Button" variant="dark" id="header-search-submit-button">
+              Read More
+              <font-awesome-icon id="right-arrow" icon="arrow-right" />
+            </b-button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -112,6 +113,9 @@ svg#right-arrow {
   font-size: 0.7em;
 }
 p.s-model {
-    margin-top: -20px;
+  margin-top: -20px;
+}
+a.read-more{
+  text-decoration: none;
 }
 </style>

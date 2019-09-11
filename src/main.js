@@ -6,6 +6,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin);
+
 library.add(faArrowRight)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

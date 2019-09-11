@@ -1,30 +1,28 @@
 <template>
   <fragment>
     <b-container fluid class="starships" v-if="!loading">
-      <h1 class="after-header">Starships</h1>
-      <p center class="heading-underline"></p>
-      <b-row>
-        <b-col sm="12" md="12" lg="12" class="starship-card">
-          <div class="filter-starship">
-            <b-form-select v-model="selected_filter" v-on:change="getFilteredData" class="mb-3">
-              <option :value="null">Please select an option</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="n/a">Robot</option>
-            </b-form-select>
-          </div>
-        </b-col>
-        <StarshipCard
-          v-for="starship in results"
-          v-bind:key="starship.name"
-          :starship="starship"
-        />
-      </b-row>
-      <b-button-group size="lg" class="mx-1 paginate" v-if="pagination_control">
-        <p>{{((this.currentPage - 1) * 10) + 1}}-{{((this.currentPage - 1) * 10) + results.length}} of {{this.totalCount}}&nbsp;</p>
-        <b-button id="previous" v-on:click="getPreviousPage">&lsaquo;</b-button>
-        <b-button id="next" v-on:click="getNextPage">&rsaquo;</b-button>
-      </b-button-group>
+      <fragment v-if="results.length > 0">
+        <h1 class="after-header">{{this.header}}</h1>
+        <p center class="heading-underline"></p>
+        <b-row>
+          <StarshipCard
+            v-for="starship in results"
+            v-bind:key="starship.name"
+            :starship="starship"
+          />
+        </b-row>
+        <b-button-group size="lg" class="mx-1 paginate" v-if="pagination_control">
+          <p>{{((this.currentPage - 1) * 10) + 1}}-{{((this.currentPage - 1) * 10) + results.length}} of {{this.totalCount}}&nbsp;</p>
+          <b-button id="previous" v-on:click="getPreviousPage">&lsaquo;</b-button>
+          <b-button id="next" v-on:click="getNextPage">&rsaquo;</b-button>
+        </b-button-group>
+      </fragment>
+
+      <fragment v-else>
+        <div class="not-found">
+          <p>Not Found.</p>
+        </div>
+      </fragment>
     </b-container>
     <div class="text-center spinner" v-else>
       <b-spinner label="Spinning"></b-spinner>
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-import StarshipCard from '../Starships/StarshipCard';
+import StarshipCard from "../Starships/StarshipCard";
 import DataService from "../../services/DataServices";
 export default {
   name: "Starships",
@@ -49,10 +47,11 @@ export default {
       currentPage: 1,
       totalCount: 0,
       selected_filter: "null",
-      pagination_control: true
+      pagination_control: true,
+      header: "Starships"
     };
   },
-  methods:{
+  methods: {
     async getNextPage() {
       if (this.currentPage === Math.ceil(this.totalCount / 10)) {
         document.querySelector("#errorPage").style.display = "block";
@@ -65,7 +64,6 @@ export default {
       }
       this.loading = true;
       let url = this.starships.next.split("https://swapi.co")[1];
-      console.log(url);
 
       let data = await DataService.getPosts(url);
       // let urlArray = url.split("");
@@ -73,7 +71,6 @@ export default {
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
-      console.log(this.results);
       this.loading = false;
       return;
     },
@@ -104,17 +101,21 @@ export default {
 
     if (Object.keys(this.$route.query).length !== 0) {
       url = "/api/starships?search=" + this.$route.query.query;
+      this.header = `Searching...`;
     } else {
       url = "/api/starships";
     }
     try {
       let data = await DataService.getPosts(url);
-      console.log(data);
       this.starships = data;
       this.results = data.results;
       this.currentPage = 1;
       this.totalCount = data.count;
       this.loading = false;
+      this.header =
+        Object.keys(this.$route.query).length !== 0
+          ? `Search Results`
+          : `Starships`;
       // this.$route.query = {};
       return;
     } catch (error) {
@@ -125,7 +126,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
 
@@ -193,5 +194,8 @@ export default {
 }
 #errorPage {
   color: red;
+}
+.not-found {
+  margin: 5em auto;
 }
 </style>
