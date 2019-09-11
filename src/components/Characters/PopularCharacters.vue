@@ -8,7 +8,7 @@
           :character="character"
         />
       </b-row>
-      <div class="text-center" v-if="loading">
+      <div class="text-center spinner2" v-if="loading">
         <b-spinner label="Spinning"></b-spinner>
       </div>
       <div class="more-characters" v-else v-on:click="getMore">
@@ -40,6 +40,9 @@ export default {
   },
   methods: {
     async getMore() {
+      if (this.characters.next == null) {
+        return;
+      }
       this.loading = true;
       let url = this.characters.next.split("https://swapi.co")[1];
 
@@ -57,7 +60,7 @@ export default {
     // eslint-disable-next-line
     console.log(url, data);
     this.characters = data;
-    this.results = data.results.slice(0,4);
+    this.results = data.results.slice(0, 4);
   }
 };
 </script>
@@ -88,5 +91,8 @@ export default {
 }
 .spinner .spinner-border {
   margin: 10em;
+}
+.spinner2 .spinner-border {
+  margin: 4em;
 }
 </style>

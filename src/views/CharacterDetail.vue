@@ -3,6 +3,9 @@
     <Header />
     <fragment v-if="!loading">
       <b-container fluid class="character">
+        <p>
+          <router-link v-bind:to="`/`">Back to Home Page</router-link>
+        </p>
         <router-link v-bind:to="`/people`">Back to Characters Page</router-link>
         <b-row>
           <b-jumbotron
@@ -79,7 +82,6 @@ export default {
       try {
         let data = await DataService.getPosts(url);
         this.state = data;
-        this.loading = false;
         this.currentPage = Number(this.currentPage) - 1;
         this.loading = false;
         return;
@@ -98,7 +100,6 @@ export default {
       try {
         let data = await DataService.getPosts(url);
         this.state = data;
-        this.loading = false;
         this.currentPage = Number(this.currentPage) + 1;
         this.loading = false;
         return;
@@ -145,5 +146,6 @@ export default {
 .spinner.detail .spinner-border {
   position: absolute;
   top: 48%;
+  margin: auto;
 }
 </style>

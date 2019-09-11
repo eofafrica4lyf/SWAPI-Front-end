@@ -4,7 +4,7 @@
       <Header />
       <h1 class="after-header">Popular Planets</h1>
       <p center class="heading-underline"></p>
-      <Planets />
+      <PopularStarships />
       <h1 id="after-header">Popular Characters</h1>
       <p center class="heading-underline"></p>
       <PopularCharacters />
@@ -14,14 +14,14 @@
 
 <script>
 // @ is an alias to /src
-import Planets from "@/components/Planets/Planets.vue";
+import PopularStarships from "@/components/Starships/PopularStarships.vue";
 import PopularCharacters from "@/components/Characters/PopularCharacters.vue";
 import Header from "../components/Header";
 export default {
   name: "home",
   components: {
     Header,
-    Planets,
+    PopularStarships,
     PopularCharacters
   }
 };

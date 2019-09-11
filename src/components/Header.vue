@@ -6,9 +6,9 @@
           <b-img left :src="require('../assets/images/logo.png')" alt="Star Wars Logo" id="logo"></b-img>
         </a>
         <div right class="menu-items">
-          <router-link :active="isActive" to="/">Home</router-link>|
-          <router-link :active="isActive" to="/people">Characters</router-link>|
-          <router-link :active="isActive" to="/about">About</router-link>
+          <router-link to="/">Home</router-link> 
+          <router-link to="/people">Characters</router-link> 
+          <router-link to="/starships">Starships</router-link>
         </div>
 
         <b-container class="header-search-row">
@@ -141,12 +141,16 @@ export default {
   top: 50px;
   font-size: 1.5em;
   color: white;
+  margin-right: 25px;
 }
 .menu-items a {
+  margin-right: 1em;
   text-decoration: none;
   color: white;
 }
 .isActive {
-  border: 1px solid white;
+  border: 2px solid rgba(255, 255, 255, 0.822);
+  border-radius: 15px;
+  padding: 2px 5px;
 }
 </style>

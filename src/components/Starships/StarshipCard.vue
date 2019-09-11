@@ -1,5 +1,5 @@
 <template>
-  <b-col sm="12" md="12" lg="4" class="planet-card">
+  <b-col sm="12" md="12" lg="4" class="planet-card" v-bind:starship="starship">
     <div class="inner-card">
       <div class="planet-card-image">
         <b-img
@@ -11,15 +11,29 @@
       </div>
       <div class="planet--card-body">
         <div class="inner">
+          <p>
+            <b>{{starship.name}}</b>,
+          </p>
+          <p class="s-model">
+            <em>
+              <small>
+                <abbr>{{starship.model}}</abbr>
+              </small>
+            </em>
+          </p>
           <p></p>
-          <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <b-button
-            right
-            size="md"
-            text="Button"
-            variant="dark"
-            id="header-search-submit-button"
-          >Read More</b-button>
+          <p>
+            <b>Capacity: </b>
+            <abbr>
+              <abbr>{{starship.cargo_capacity}}</abbr>
+            </abbr>
+          </p>
+          <router-link class="read-more" v-bind:to="starship.url.split('https://swapi.co/api')[1]">
+            <b-button right size="md" text="Button" variant="dark" id="header-search-submit-button">
+              Read More
+              <font-awesome-icon id="right-arrow" icon="arrow-right" />
+            </b-button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -28,8 +42,10 @@
 
 <script>
 // import Image from "@/assets/images/logo.png";
+
 export default {
-  name: "PlanetCard"
+  name: "StarshipCard",
+  props: ["starship"]
 };
 </script>
 
@@ -70,7 +86,7 @@ export default {
   width: 350px;
   /* height: 350px;
     width: 350px; */
-    object-fit: cover;
+  object-fit: cover;
 }
 .planet--image {
   height: 100%;
@@ -91,5 +107,15 @@ export default {
   margin-left: 0.7em;
   padding: 2em;
   width: 350px;
+  height: 190px;
+}
+svg#right-arrow {
+  font-size: 0.7em;
+}
+p.s-model {
+  margin-top: -20px;
+}
+a.read-more{
+  text-decoration: none;
 }
 </style>

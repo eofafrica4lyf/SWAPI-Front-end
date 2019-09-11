@@ -1,24 +1,14 @@
 <template>
   <fragment>
-    <b-container fluid class="characters" v-if="!loading">
+    <b-container fluid class="starships" v-if="!loading">
       <fragment v-if="results.length > 0">
         <h1 class="after-header">{{this.header}}</h1>
         <p center class="heading-underline"></p>
         <b-row>
-          <b-col sm="12" md="12" lg="12" class="character-card">
-            <div class="filter-character">
-              <b-form-select v-model="selected_filter" v-on:change="getFilteredData" class="mb-3">
-                <option :value="null">Please select an option</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="n/a">Robot</option>
-              </b-form-select>
-            </div>
-          </b-col>
-          <CharacterCard
-            v-for="character in results"
-            v-bind:key="character.name"
-            :character="character"
+          <StarshipCard
+            v-for="starship in results"
+            v-bind:key="starship.name"
+            :starship="starship"
           />
         </b-row>
         <b-button-group size="lg" class="mx-1 paginate" v-if="pagination_control">
@@ -27,6 +17,7 @@
           <b-button id="next" v-on:click="getNextPage">&rsaquo;</b-button>
         </b-button-group>
       </fragment>
+
       <fragment v-else>
         <div class="not-found">
           <p>Not Found.</p>
@@ -41,51 +32,26 @@
 </template>
 
 <script>
-import CharacterCard from "../Characters/CharacterCard";
-import { Fragment } from "vue-fragment";
+import StarshipCard from "../Starships/StarshipCard";
 import DataService from "../../services/DataServices";
 export default {
-  name: "Characters",
+  name: "Starships",
   components: {
-    CharacterCard,
-    Fragment
+    StarshipCard
   },
   data() {
     return {
-      characters: "",
+      starships: "",
       results: [],
       loading: true,
       currentPage: 1,
       totalCount: 0,
       selected_filter: "null",
       pagination_control: true,
-      header: "Characters"
+      header: "Starships"
     };
   },
   methods: {
-    async getFilteredData() {
-      this.loading = true;
-      if (this.selected_filter === "null" || this.selected_filter === null) {
-        this.results = this.characters.results;
-        this.pagination_control = true;
-      } else {
-        this.results =
-          this.selected_filter === "male" || this.selected_filter === "female"
-            ? this.characters.results.filter(
-                character =>
-                  character.gender === this.selected_filter ||
-                  character.gender === "hermaphrodite"
-              )
-            : this.characters.results.filter(
-                character =>
-                  character.gender === this.selected_filter ||
-                  this.selected_filter === "none"
-              );
-        this.pagination_control = false;
-      }
-      this.loading = false;
-      return;
-    },
     async getNextPage() {
       if (this.currentPage === Math.ceil(this.totalCount / 10)) {
         document.querySelector("#errorPage").style.display = "block";
@@ -97,11 +63,11 @@ export default {
         return;
       }
       this.loading = true;
-      let url = this.characters.next.split("https://swapi.co")[1];
+      let url = this.starships.next.split("https://swapi.co")[1];
 
       let data = await DataService.getPosts(url);
       // let urlArray = url.split("");
-      this.characters = data;
+      this.starships = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
@@ -119,10 +85,10 @@ export default {
         return;
       }
       this.loading = true;
-      let url = this.characters.previous.split("https://swapi.co")[1];
+      let url = this.starships.previous.split("https://swapi.co")[1];
 
       let data = await DataService.getPosts(url);
-      this.characters = data;
+      this.starships = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
@@ -134,52 +100,48 @@ export default {
     let url;
 
     if (Object.keys(this.$route.query).length !== 0) {
-      url = "/api/people?search=" + this.$route.query.query;
+      url = "/api/starships?search=" + this.$route.query.query;
       this.header = `Searching...`;
     } else {
-      url = "/api/people";
+      url = "/api/starships";
     }
     try {
       let data = await DataService.getPosts(url);
-      // if(data.results.length === 0){
-
-      // }
-      this.characters = data;
+      this.starships = data;
       this.results = data.results;
-      console.log(this.results);
-
       this.currentPage = 1;
       this.totalCount = data.count;
       this.loading = false;
       this.header =
         Object.keys(this.$route.query).length !== 0
           ? `Search Results`
-          : `Characters`;
+          : `Starships`;
       // this.$route.query = {};
       return;
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
       this.$router.push({
-        path: "/"
+        path: "/people"
       });
     }
   }
 };
 </script>
 
+
 <style scoped>
-.characters {
+.starships {
   width: 70%;
   margin-bottom: 4em;
 }
-.more-characters {
+.more-starships {
   margin-top: 8em;
   margin: auto;
   text-align: center;
   width: 50%;
 }
-.more-characters button {
+.more-starships button {
   border: 3px solid black;
   width: 100%;
   max-width: 400px;
@@ -213,15 +175,15 @@ export default {
 .paginate #next {
   border-radius: 0px 5px 5px 0px;
 }
-.filter-character {
+.filter-starship {
   display: block;
   border-radius: 5px;
   width: 250px;
 }
-.filter-character select {
+.filter-starship select {
   border: 2px solid black;
 }
-#character-filter-dropdown {
+#starship-filter-dropdown {
   width: 50%;
 }
 .heading-underline {
@@ -234,6 +196,6 @@ export default {
   color: red;
 }
 .not-found {
-    margin: 5em auto;
+  margin: 5em auto;
 }
 </style>
