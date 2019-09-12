@@ -6,6 +6,7 @@ import CharacterDetail from './views/CharacterDetail.vue';
 import Starships from './views/Starships.vue';
 import StarshipDetail from './views/StarshipDetail.vue';
 import Planets from "./views/Planets.vue"
+import PlanetDetail from './views/PlanetDetail.vue'
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
 			path: '/planets',
 			name: 'planets',
 			component: Planets
+		},
+		{
+			path: '/planets/:id',
+			name: 'planetsdetail',
+			component: PlanetDetail
 		},
 		{
 			path: '/about',

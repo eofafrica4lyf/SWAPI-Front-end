@@ -51,8 +51,6 @@ export default {
   async created() {
     let url = "/api/planets";
     let data = await DataService.getPosts(url);
-    console.log(data);
-
     this.planets = data;
     this.results = data.results.slice(0, 6);
   }
