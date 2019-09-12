@@ -47,8 +47,6 @@ export default {
       let url = this.characters.next.split("https://swapi.co")[1];
 
       let data = await DataService.getPosts(url);
-      // eslint-disable-next-line
-      console.log(url, data);
       this.characters = data;
       this.results = [...this.results, ...data.results];
       this.loading = false;
@@ -57,8 +55,6 @@ export default {
   async created() {
     let url = "/api/people";
     let data = await DataService.getPosts(url);
-    // eslint-disable-next-line
-    console.log(url, data);
     this.characters = data;
     this.results = data.results.slice(0, 4);
   }

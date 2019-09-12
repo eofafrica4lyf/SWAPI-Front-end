@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="planets" v-if="starships">
+  <b-container fluid class="starships" v-if="starships">
     <b-row>
       <StarshipCard v-for="starship in results" v-bind:key="starship.name" :starship="starship" />
     </b-row>
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style>
-.planets {
+.starships {
   width: 70%;
   margin-bottom: 4em;
 }

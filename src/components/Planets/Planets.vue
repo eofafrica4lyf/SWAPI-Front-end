@@ -1,25 +1,11 @@
 <template>
   <fragment>
-    <b-container fluid class="characters" v-if="!loading">
+    <b-container fluid class="planets" v-if="!loading">
       <fragment v-if="results.length > 0">
         <h1 class="after-header">{{this.header}}</h1>
         <p center class="heading-underline"></p>
         <b-row>
-          <b-col sm="12" md="12" lg="12" class="character-card">
-            <div class="filter-character">
-              <b-form-select v-model="selected_filter" v-on:change="getFilteredData" class="mb-3">
-                <option :value="null">Please select an option</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="n/a">Robot</option>
-              </b-form-select>
-            </div>
-          </b-col>
-          <CharacterCard
-            v-for="character in results"
-            v-bind:key="character.name"
-            :character="character"
-          />
+          <PlanetsPageCard v-for="planet in results" v-bind:key="planet.name" :planet="planet" />
         </b-row>
         <b-button-group size="lg" class="mx-1 paginate" v-if="pagination_control">
           <p>{{((this.currentPage - 1) * 10) + 1}}-{{((this.currentPage - 1) * 10) + results.length}} of {{this.totalCount}}&nbsp;</p>
@@ -27,6 +13,7 @@
           <b-button id="next" v-on:click="getNextPage">&rsaquo;</b-button>
         </b-button-group>
       </fragment>
+
       <fragment v-else>
         <div class="not-found">
           <p>Not Found.</p>
@@ -41,51 +28,26 @@
 </template>
 
 <script>
-import CharacterCard from "../Characters/CharacterCard";
-import { Fragment } from "vue-fragment";
+import PlanetsPageCard from "../Planets/PlanetsPageCard";
 import DataService from "../../services/DataServices";
 export default {
-  name: "Characters",
+  name: "Planets",
   components: {
-    CharacterCard,
-    Fragment
+    PlanetsPageCard
   },
   data() {
     return {
-      characters: "",
+      planets: "",
       results: [],
       loading: true,
       currentPage: 1,
       totalCount: 0,
       selected_filter: "null",
       pagination_control: true,
-      header: "Characters"
+      header: "planets"
     };
   },
   methods: {
-    async getFilteredData() {
-      this.loading = true;
-      if (this.selected_filter === "null" || this.selected_filter === null) {
-        this.results = this.characters.results;
-        this.pagination_control = true;
-      } else {
-        this.results =
-          this.selected_filter === "male" || this.selected_filter === "female"
-            ? this.characters.results.filter(
-                character =>
-                  character.gender === this.selected_filter ||
-                  character.gender === "hermaphrodite"
-              )
-            : this.characters.results.filter(
-                character =>
-                  character.gender === this.selected_filter ||
-                  this.selected_filter === "none"
-              );
-        this.pagination_control = false;
-      }
-      this.loading = false;
-      return;
-    },
     async getNextPage() {
       if (this.currentPage === Math.ceil(this.totalCount / 10)) {
         document.querySelector("#errorPage").style.display = "block";
@@ -97,11 +59,11 @@ export default {
         return;
       }
       this.loading = true;
-      let url = this.characters.next.split("https://swapi.co")[1];
+      let url = this.planets.next.split("https://swapi.co")[1];
 
       let data = await DataService.getPosts(url);
       // let urlArray = url.split("");
-      this.characters = data;
+      this.planets = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
@@ -119,10 +81,10 @@ export default {
         return;
       }
       this.loading = true;
-      let url = this.characters.previous.split("https://swapi.co")[1];
+      let url = this.planets.previous.split("https://swapi.co")[1];
 
       let data = await DataService.getPosts(url);
-      this.characters = data;
+      this.planets = data;
       this.results = data.results;
       this.currentPage = Number(url[url.length - 1]);
       this.totalCount = data.count;
@@ -134,30 +96,29 @@ export default {
     let url;
 
     if (Object.keys(this.$route.query).length !== 0) {
-      url = "/api/people?search=" + this.$route.query.query;
+      url = "/api/planets?search=" + this.$route.query.query;
       this.header = `Searching...`;
     } else {
-      url = "/api/people";
+      url = "/api/planets";
     }
     try {
       let data = await DataService.getPosts(url);
-      this.characters = data;
+      this.planets = data;
       this.results = data.results;
-
       this.currentPage = 1;
       this.totalCount = data.count;
       this.loading = false;
       this.header =
         Object.keys(this.$route.query).length !== 0
           ? `Search Results`
-          : `Characters`;
+          : `Planets`;
       // this.$route.query = {};
       return;
     } catch (error) {
       // eslint-disable-next-line
       console.log(error);
       this.$router.push({
-        path: "/"
+        path: "/people"
       });
     }
   }
@@ -165,17 +126,17 @@ export default {
 </script>
 
 <style scoped>
-.characters {
+.planets {
   width: 70%;
   margin-bottom: 4em;
 }
-.more-characters {
+.more-planets {
   margin-top: 8em;
   margin: auto;
   text-align: center;
   width: 50%;
 }
-.more-characters button {
+.more-planets button {
   border: 3px solid black;
   width: 100%;
   max-width: 400px;
@@ -209,15 +170,15 @@ export default {
 .paginate #next {
   border-radius: 0px 5px 5px 0px;
 }
-.filter-character {
+.filter-planet {
   display: block;
   border-radius: 5px;
   width: 250px;
 }
-.filter-character select {
+.filter-planet select {
   border: 2px solid black;
 }
-#character-filter-dropdown {
+#planet-filter-dropdown {
   width: 50%;
 }
 .heading-underline {
@@ -230,6 +191,6 @@ export default {
   color: red;
 }
 .not-found {
-    margin: 5em auto;
+  margin: 5em auto;
 }
 </style>

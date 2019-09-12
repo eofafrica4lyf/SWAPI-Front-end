@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="starships">
+    <div class="starshipss">
       <Header />
       <Starships />
     </div>

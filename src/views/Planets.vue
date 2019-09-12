@@ -1,21 +1,21 @@
 <template>
   <div class="main">
-    <div class="characterss">
+    <div class="planets">
       <Header />
-      <Characters />
+      <Planets />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Characters from "@/components/Characters/Characters.vue";
+import Planets from "@/components/Planets/Planets.vue";
 import Header from "../components/Header";
 export default {
-  name: "characters",
+  name: "planets",
   components: {
     Header,
-    Characters
+    Planets
   }
 };
 </script>

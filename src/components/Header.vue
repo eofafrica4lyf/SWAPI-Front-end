@@ -9,6 +9,7 @@
           <router-link to="/">Home</router-link> 
           <router-link to="/people">Characters</router-link> 
           <router-link to="/starships">Starships</router-link>
+          <router-link to="/planets">Planets</router-link>
         </div>
 
         <b-container class="header-search-row">
