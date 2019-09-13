@@ -151,7 +151,7 @@ export default {
 }
 .isActive {
   border: 2px solid rgba(255, 255, 255, 0.822);
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 2px 5px;
 }
 </style>
