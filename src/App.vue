@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <Header /> -->
     <router-view />
   </div>
 </template>
@@ -13,7 +12,7 @@ Vue.use(BootstrapVue);
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import Header from "./components/Header";
+
 
 export default {
   name: "App",

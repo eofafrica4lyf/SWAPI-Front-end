@@ -9,6 +9,7 @@
           <router-link to="/">Home</router-link> 
           <router-link to="/people">Characters</router-link> 
           <router-link to="/starships">Starships</router-link>
+          <router-link to="/planets">Planets</router-link>
         </div>
 
         <b-container class="header-search-row">
@@ -150,7 +151,7 @@ export default {
 }
 .isActive {
   border: 2px solid rgba(255, 255, 255, 0.822);
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 2px 5px;
 }
 </style>

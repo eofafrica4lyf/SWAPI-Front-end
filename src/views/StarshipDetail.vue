@@ -69,6 +69,9 @@ import { Fragment } from "vue-fragment";
 import DataService from "../services/DataServices";
 export default {
   name: "Starship",
+  components: {
+    Fragment
+  },
   data() {
     return {
       state: {},

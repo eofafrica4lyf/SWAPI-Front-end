@@ -141,12 +141,8 @@ export default {
     }
     try {
       let data = await DataService.getPosts(url);
-      // if(data.results.length === 0){
-
-      // }
       this.characters = data;
       this.results = data.results;
-      console.log(this.results);
 
       this.currentPage = 1;
       this.totalCount = data.count;
